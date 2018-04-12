@@ -1,0 +1,31 @@
+{
+  "name": "better-title-case",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Brad Dougherty <me@brad.is>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdougherty/better-title-case.git"
+  },
+  "homepage": "https://github.com/bdougherty/better-title-case#readme",
+  "bugs": {
+    "url": "https://github.com/bdougherty/better-title-case/issues"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "scripts": {
+    "test": "xo && nyc ava"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "eslint-config-bdougherty": "^4.1.1",
+    "nyc": "^11.6.0",
+    "xo": "^0.20.3"
+  },
+  "xo": {
+    "extends": "bdougherty"
+  }
+}
