@@ -1,4 +1,4 @@
-# better-title-case
+# better-title-case [![Build Status](https://travis-ci.org/bdougherty/better-title-case.svg?branch=master)](https://travis-ci.org/bdougherty/better-title-case)
 
 > Convert a string to title case based on the [Daring Fireball](https://daringfireball.net/2008/05/title_case) rules.
 
