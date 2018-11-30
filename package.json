@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "LICENSE.md"
+  ],
   "author": "Brad Dougherty <me@brad.is>",
   "license": "MIT",
   "repository": {
