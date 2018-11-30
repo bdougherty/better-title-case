@@ -31,7 +31,7 @@ function isUrl(url) {
 		const parsed = new URL(url);
 		return Boolean(parsed.hostname);
 	}
-	catch (err) {
+	catch (error) {
 		return false;
 	}
 }

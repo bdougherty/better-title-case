@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "ava": "^0.25.0",
-    "eslint-config-bdougherty": "^4.1.1",
-    "nyc": "^11.6.0",
-    "xo": "^0.20.3"
+    "eslint-config-bdougherty": "^5.1.1",
+    "nyc": "^13.1.0",
+    "xo": "^0.23.0"
   },
   "xo": {
     "extends": "bdougherty"
