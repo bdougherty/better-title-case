@@ -60,9 +60,13 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		excludedWords.push(...alwaysLowercase);
 	}
 
-	const words = string.trim().split(/\s+/);
+	const words = string.trim().split(/(\s+)/);
 
 	const capitalizedWords = words.map((word, index, array) => {
+		if (word.match(/\s+/)) {
+			return word;
+		}
+
 		const isFirstWird = index === 0;
 		const isLastWord = index === words.length - 1;
 		const isEmail = /.+@.+\..+/.test(word);
@@ -70,7 +74,7 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		const isFileName = /^\w+\.\w{1,3}$/.test(word);
 		const hasInternalCapital = /(?![-‑–—])[a-z]+[A-Z].*/.test(word);
 
-		const previousWord = index > 1 ? array[index - 1] : '';
+		const previousWord = index > 1 ? array[index - 2] : '';
 		const startOfSubPhrase = index > 1 && [...previousWord].pop() === ':';
 
 		if (isEmail || isUrl(word) || isFilePath || isFileName || hasInternalCapital) {
@@ -106,7 +110,7 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		return capitalize(word);
 	});
 
-	return capitalizedWords.join(' ');
+	return capitalizedWords.join('');
 }
 
 module.exports = titleCase;
