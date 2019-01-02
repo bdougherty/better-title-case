@@ -60,24 +60,34 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		excludedWords.push(...alwaysLowercase);
 	}
 
-	const words = string.trim().split(/\s+/);
+	const words = string.trim().split(/(\s+)/);
 
-	const capitalizedWords = words.map((word, index, array) => {
-		const isFirstWird = index === 0;
-		const isLastWord = index === words.length - 1;
-		const isEmail = /.+@.+\..+/.test(word);
-		const isFilePath = /^(\/[\w.]+)+/.test(word);
-		const isFileName = /^\w+\.\w{1,3}$/.test(word);
-		const hasInternalCapital = /(?![-‑–—])[a-z]+[A-Z].*/.test(word);
+	let previousWord = '';
+	const lastWordIndex = words.length - 1;
+	const re = {
+		isEmail: /.+@.+\..+/,
+		isFilePath: /^(\/[\w.]+)+/,
+		isFileName: /^\w+\.\w{1,3}$/,
+		hasInternalCapital: /(?![-‑–—])[a-z]+[A-Z].*/,
 
-		const previousWord = index > 1 ? array[index - 1] : '';
-		const startOfSubPhrase = index > 1 && [...previousWord].pop() === ':';
-
-		if (isEmail || isUrl(word) || isFilePath || isFileName || hasInternalCapital) {
+		hasHyphen: /[-‑–—]/g
+	};
+	const capitalizedWords = words.map((word, index) => {
+		if (word.match(/\s+/)) {
 			return word;
 		}
 
-		const hasHyphen = word.match(/[-‑–—]/g);
+		const isFirstWird = index === 0;
+		const isLastWord = index === lastWordIndex;
+
+		const startOfSubPhrase = previousWord.endsWith(':');
+		previousWord = word;
+
+		if (re.isEmail.test(word) || isUrl(word) || re.isFilePath.test(word) || re.isFileName.test(word) || re.hasInternalCapital.test(word)) {
+			return word;
+		}
+
+		const hasHyphen = word.match(re.hasHyphen);
 		if (hasHyphen) {
 			const isMultiPart = hasHyphen.length > 1;
 			const [hyphenCharacter] = hasHyphen;
@@ -106,7 +116,7 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		return capitalize(word);
 	});
 
-	return capitalizedWords.join(' ');
+	return capitalizedWords.join('');
 }
 
 module.exports = titleCase;
