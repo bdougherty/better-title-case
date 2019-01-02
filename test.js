@@ -41,6 +41,7 @@ test(convert, `IF IT’S ALL CAPS, FIX IT`, `If It’s All Caps, Fix It`);
 test(convert, `___if emphasized, keep that way___`, `___If Emphasized, Keep That Way___`);
 test(convert, `What could/should be done about slashes?`, `What Could/Should Be Done About Slashes?`);
 test(convert, `Never touch paths like /var/run before/after /boot`, `Never Touch Paths Like /var/run Before/After /boot`);
+test(convert, "6\u00a0The time it takes: temporalities of  planning", "6\u00a0The Time It Takes: Temporalities of  Planning");
 
 test('exclusions', (t) => {
 	t.is(titleCase('Nothing to Be Afraid of?', {
