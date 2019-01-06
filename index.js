@@ -24,7 +24,7 @@ const alwaysLowercase = [
 	'vs.'
 ];
 
-const containers = ['(', '[', '{', '"', `'`, '_'];
+const defaultContainers = ['(', '[', '{', '"', `'`, '_'];
 
 function isUrl(url) {
 	try {
@@ -36,7 +36,7 @@ function isUrl(url) {
 	}
 }
 
-function capitalize(string) {
+function capitalize(string, containers) {
 	if (string.length === 0) {
 		return string;
 	}
@@ -45,13 +45,13 @@ function capitalize(string) {
 	const firstLetter = letters.shift();
 
 	if (containers.indexOf(firstLetter) !== -1) {
-		return `${firstLetter}${capitalize(letters)}`;
+		return `${firstLetter}${capitalize(letters, containers)}`;
 	}
 
 	return `${firstLetter.toUpperCase()}${letters.join('')}`;
 }
 
-function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = true } = {}) {
+function titleCase(string = '', { keepSpaces = false, containers = null, excludedWords = [], useDefaultExcludedWords = true } = {}) {
 	if (string.toUpperCase() === string) {
 		string = string.toLowerCase();
 	}
@@ -60,11 +60,13 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 		excludedWords.push(...alwaysLowercase);
 	}
 
+	containers = containers || defaultContainers;
+
 	const words = string.trim().split(/(\s+)/);
 
 	const capitalizedWords = words.map((word, index, array) => {
 		if (word.match(/\s+/)) {
-			return word;
+			return keepSpaces ? word : ' ';
 		}
 
 		const isFirstWird = index === 0;
@@ -91,23 +93,23 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 					return subWord;
 				}
 
-				return capitalize(subWord);
+				return capitalize(subWord, containers);
 			}).join(hyphenCharacter);
 		}
 
 		if (word.indexOf('/') !== -1) {
-			return word.split('/').map(capitalize).join('/');
+			return word.split('/').map((w) => capitalize(w, containers)).join('/');
 		}
 
 		if (isFirstWird || isLastWord) {
-			return capitalize(word);
+			return capitalize(word, containers);
 		}
 
 		if (!startOfSubPhrase && excludedWords.indexOf(word.toLowerCase()) !== -1) {
 			return word.toLowerCase();
 		}
 
-		return capitalize(word);
+		return capitalize(word, containers);
 	});
 
 	return capitalizedWords.join('');
