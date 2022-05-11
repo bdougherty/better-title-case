@@ -24,6 +24,12 @@ const alwaysLowercase = [
 
 const containers = new Set(['(', '[', '{', '"', `'`, '_']);
 
+const isEmail = /.+@.+\..+/;
+const isFilePath = /^(\/[\w.]+)+/;
+const isFileName = /^\w+\.\w{1,3}$/;
+const hasInternalCapital = /(?![‑–—-])[a-z]+[A-Z].*/;
+const hasHyphen = /[‑–—-]/g;
+
 function isUrl(url) {
 	try {
 		const parsed = new URL(url);
@@ -63,24 +69,21 @@ export default function titleCase(
 	const words = string.trim().split(/\s+/);
 
 	const capitalizedWords = words.map((word, index, array) => {
-		const isFirstWird = index === 0;
-		const isLastWord = index === words.length - 1;
-		const isEmail = /.+@.+\..+/.test(word);
-		const isFilePath = /^(\/[\w.]+)+/.test(word);
-		const isFileName = /^\w+\.\w{1,3}$/.test(word);
-		const hasInternalCapital = /(?![‑–—-])[a-z]+[A-Z].*/.test(word);
-
-		const previousWord = index > 1 ? array[index - 1] : '';
-		const startOfSubPhrase = index > 1 && [...previousWord].pop() === ':';
-
-		if (isEmail || isUrl(word) || isFilePath || isFileName || hasInternalCapital) {
+		if (
+			isEmail.test(word) ||
+			isUrl(word) ||
+			isFilePath.test(word) ||
+			isFileName.test(word) ||
+			hasInternalCapital.test(word)
+		) {
 			return word;
 		}
 
-		const hasHyphen = word.match(/[‑–—-]/g);
-		if (hasHyphen) {
-			const isMultiPart = hasHyphen.length > 1;
-			const [hyphenCharacter] = hasHyphen;
+		const hyphenMatch = word.match(hasHyphen);
+
+		if (hyphenMatch) {
+			const isMultiPart = hyphenMatch.length > 1;
+			const [hyphenCharacter] = hyphenMatch;
 
 			return word
 				.split(hyphenCharacter)
@@ -101,11 +104,17 @@ export default function titleCase(
 				.join('/');
 		}
 
-		if (isFirstWird || isLastWord) {
-			return capitalize(word);
-		}
+		const isFirstWord = index === 0;
+		const isLastWord = index === words.length - 1;
+		const previousWord = index > 1 ? array[index - 1] : '';
+		const startOfSubPhrase = index > 1 && previousWord.endsWith(':');
 
-		if (!startOfSubPhrase && excludedWords.includes(word.toLowerCase())) {
+		if (
+			!isFirstWord &&
+			!isLastWord &&
+			!startOfSubPhrase &&
+			excludedWords.includes(word.toLowerCase())
+		) {
 			return word.toLowerCase();
 		}
 
