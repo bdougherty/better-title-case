@@ -1,35 +1,29 @@
 {
   "name": "better-title-case",
   "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
-  "files": [
-    "index.js",
-    "LICENSE.md"
-  ],
+  "description": "Convert a string to title case based on the Daring Fireball rules.",
+  "type": "module",
+  "main": "./index.js",
+  "files": [],
   "author": "Brad Dougherty <me@brad.is>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bdougherty/better-title-case.git"
-  },
+  "repository": "github:bdougherty/better-title-case",
   "homepage": "https://github.com/bdougherty/better-title-case#readme",
-  "bugs": {
-    "url": "https://github.com/bdougherty/better-title-case/issues"
-  },
+  "bugs": "https://github.com/bdougherty/better-title-case/issues",
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
-    "test": "xo && nyc ava"
+    "test": "c8 ava",
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "ava": "^0.25.0",
-    "eslint-config-bdougherty": "^5.1.1",
-    "nyc": "^13.1.0",
-    "xo": "^0.23.0"
-  },
-  "xo": {
-    "extends": "bdougherty"
+    "ava": "4.2.0",
+    "c8": "7.11.2",
+    "eslint": "8.15.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-unicorn": "42.0.0",
+    "prettier": "2.6.2"
   }
 }
