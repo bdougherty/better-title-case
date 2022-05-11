@@ -1,5 +1,3 @@
-const { URL } = require('url');
-
 const alwaysLowercase = [
 	'a',
 	'an',
@@ -51,7 +49,7 @@ function capitalize(string) {
 	return `${firstLetter.toUpperCase()}${letters.join('')}`;
 }
 
-function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = true } = {}) {
+export default function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = true } = {}) {
 	if (string.toUpperCase() === string) {
 		string = string.toLowerCase();
 	}
@@ -108,5 +106,3 @@ function titleCase(string = '', { excludedWords = [], useDefaultExcludedWords = 
 
 	return capitalizedWords.join(' ');
 }
-
-module.exports = titleCase;

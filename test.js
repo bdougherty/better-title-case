@@ -1,11 +1,14 @@
 import test from 'ava';
-import titleCase from '.';
+import titleCase from './index.js';
 
-function convert(t, input, expected) {
-	t.is(titleCase(input), expected);
-}
-
-convert.title = (providedTitle, input) => `Properly capitalizes ”${input}“`;
+const convert = test.macro({
+	exec(t, input, expected) {
+		t.is(titleCase(input), expected);
+	},
+	title(_, input) {
+		return `Properly capitalizes “${input}”`;
+	}
+});
 
 test(convert, undefined, '');
 test(convert, '', '');

@@ -22,7 +22,7 @@ $ npm install --save better-title-case
 ## Usage
 
 ```js
-const titleCase = require('better-title-case');
+import titleCase from 'better-title-case';
 console.log(titleCase('Nothing to Be Afraid of?'));
 // Nothing to Be Afraid Of?
 ```
@@ -34,7 +34,7 @@ You can configure `better-title-case` to add your own excluded words to the defa
 
 ### excludedWords
 
-Type: `Array`<br>
+Type: `[string]`<br>
 Default: `[]`
 
 Additional words to exclude from capitalization.
@@ -48,7 +48,7 @@ titleCase('Nothing to be afraid of?', {
 
 ### useDefaultExcludedWords
 
-Type: `Boolean`<br>
+Type: `boolean`<br>
 Default: `true`
 
 Disable the usage of the default list of excluded words.
