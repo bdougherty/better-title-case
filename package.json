@@ -3,7 +3,7 @@
 	"version": "2.0.0",
 	"description": "Convert a string to title case based on the Daring Fireball rules.",
 	"type": "module",
-	"main": "./index.js",
+	"main": "index.js",
 	"files": [],
 	"author": "Brad Dougherty <me@brad.is>",
 	"license": "MIT",
