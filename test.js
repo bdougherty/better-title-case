@@ -96,6 +96,7 @@ test(
 test(convert, `  this is trimming`, `This Is Trimming`);
 test(convert, `this is trimming  `, `This Is Trimming`);
 test(convert, `  this is trimming  `, `This Is Trimming`);
+test(convert, `this is  removing extra space`, `This Is Removing Extra Space`);
 test(convert, `IF IT’S ALL CAPS, FIX IT`, `If It’s All Caps, Fix It`);
 test(convert, `___if emphasized, keep that way___`, `___If Emphasized, Keep That Way___`);
 test(
@@ -123,5 +124,14 @@ test('exclusions', (t) => {
 			useDefaultExcludedWords: false
 		}),
 		'Nothing To be Afraid Of?'
+	);
+});
+
+test('preserve whitespace', (t) => {
+	t.is(
+		titleCase('this  is  preserving   extra space', {
+			preserveWhitespace: true
+		}),
+		'This  Is  Preserving   Extra Space'
 	);
 });

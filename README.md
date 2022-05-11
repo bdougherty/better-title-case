@@ -57,6 +57,20 @@ titleCase('Nothing to be afraid of?', {
 // 'Nothing To Be Afraid Of?'
 ```
 
+### preserveWhitespace
+
+Type: `boolean`<br>
+Default: `false`
+
+Maintain extra whitespace between words. By default, all whitespace between words is collapsed to a single space.
+
+```js
+titleCase('Nothing  to be   afraid of?', {
+	preserveWhitespace: true
+});
+// 'Nothing  To Be   Afraid Of?'
+```
+
 ## License
 
 MIT © [Brad Dougherty](https://brad.is)

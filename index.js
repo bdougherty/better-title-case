@@ -56,7 +56,7 @@ function capitalize(string) {
 
 export default function titleCase(
 	string = '',
-	{ excludedWords = [], useDefaultExcludedWords = true } = {}
+	{ excludedWords = [], useDefaultExcludedWords = true, preserveWhitespace = false } = {}
 ) {
 	if (string.toUpperCase() === string) {
 		string = string.toLowerCase();
@@ -66,9 +66,13 @@ export default function titleCase(
 		excludedWords.push(...alwaysLowercase);
 	}
 
-	const words = string.trim().split(/\s+/);
+	const words = string.trim().split(/(\s+)/);
 
 	const capitalizedWords = words.map((word, index, array) => {
+		if (/\s+/.test(word)) {
+			return preserveWhitespace ? word : ' ';
+		}
+
 		if (
 			isEmail.test(word) ||
 			isUrl(word) ||
@@ -106,7 +110,7 @@ export default function titleCase(
 
 		const isFirstWord = index === 0;
 		const isLastWord = index === words.length - 1;
-		const previousWord = index > 1 ? array[index - 1] : '';
+		const previousWord = index > 1 ? array[index - 2] : '';
 		const startOfSubPhrase = index > 1 && previousWord.endsWith(':');
 
 		if (
@@ -121,5 +125,5 @@ export default function titleCase(
 		return capitalize(word);
 	});
 
-	return capitalizedWords.join(' ');
+	return capitalizedWords.join('');
 }
