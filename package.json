@@ -1,6 +1,6 @@
 {
 	"name": "better-title-case",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "Convert a string to title case based on the Daring Fireball rules.",
 	"type": "module",
 	"main": "index.js",
