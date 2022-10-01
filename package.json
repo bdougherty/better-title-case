@@ -4,7 +4,9 @@
 	"description": "Convert a string to title case based on the Daring Fireball rules.",
 	"type": "module",
 	"main": "index.js",
-	"files": [],
+	"files": [
+		"index.d.ts"
+	],
 	"author": "Brad Dougherty <me@brad.is>",
 	"license": "MIT",
 	"repository": "github:bdougherty/better-title-case",
