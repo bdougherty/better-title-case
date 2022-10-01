@@ -19,11 +19,11 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"ava": "4.2.0",
-		"c8": "7.11.2",
-		"eslint": "8.15.0",
+		"ava": "4.3.3",
+		"c8": "7.12.0",
+		"eslint": "8.24.0",
 		"eslint-config-prettier": "8.5.0",
-		"eslint-plugin-unicorn": "42.0.0",
-		"prettier": "2.6.2"
+		"eslint-plugin-unicorn": "44.0.0",
+		"prettier": "2.7.1"
 	}
 }
